@@ -1,41 +1,179 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chechu cumple 28</title>
-
-    <style>
-        body{
-            margin:0;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            height:100vh;
-            background:linear-gradient(135deg,#fff,#ffe4ef);
-            font-family:Arial, sans-serif;
-            text-align:center;
-        }
-
-        h1{
-            color:#d63384;
-            font-size:50px;
-        }
-
-        p{
-            font-size:22px;
-            color:#666;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chechu cumple 28</title>
+  <style>
+    body{
+      margin:0;
+      font-family: Arial, sans-serif;
+      background:#fff5fa;
+      color:#333;
+      text-align:center;
+    }
+    .portada{
+      min-height:100vh;
+      background:linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.55)),
+      url("assets/WhatsApp Image 2026-07-07 at 5.45.27 PM.jpeg");
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      color:white;
+      padding:20px;
+    }
+    h1{
+      font-size:48px;
+      margin:0;
+      text-shadow:0 0 15px #000;
+    }
+    .subtitulo{
+      font-size:24px;
+      margin:15px 0;
+    }
+    button, .btn{
+      background:#f6a6c8;
+      color:white;
+      border:none;
+      padding:15px 25px;
+      border-radius:30px;
+      font-size:18px;
+      text-decoration:none;
+      display:inline-block;
+      margin:10px;
+      cursor:pointer;
+      box-shadow:0 4px 15px rgba(0,0,0,.2);
+    }
+    section{
+      padding:35px 20px;
+      max-width:700px;
+      margin:auto;
+    }
+    .card{
+      background:white;
+      border-radius:25px;
+      padding:25px;
+      box-shadow:0 4px 20px rgba(0,0,0,.12);
+      margin:20px 0;
+    }
+    .contador{
+      display:flex;
+      justify-content:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .contador div{
+      background:#fff;
+      border:2px solid #f6a6c8;
+      border-radius:18px;
+      padding:12px;
+      min-width:75px;
+    }
+    input, select{
+      width:90%;
+      padding:13px;
+      margin:8px 0;
+      border-radius:15px;
+      border:1px solid #ddd;
+      font-size:16px;
+    }
+    footer{
+      padding:25px;
+      color:#777;
+    }
+  </style>
 </head>
-
 <body>
 
-<div>
-    <h1>🎉 Chechu cumple 28 🎉</h1>
+  <div class="portada">
+    <h1>✨ Chechu cumple 28 ✨</h1>
+    <p class="subtitulo">Sábado 11 de julio • 22 hs</p>
+    <button onclick="abrirInvitacion()">💌 Abrir invitación</button>
+  </div>
 
-    <p>La invitación se está construyendo... 💖</p>
-</div>
+  <audio id="musica" loop>
+    <source src="assets/WhatsApp Audio 2026-07-07 at 6.16.49 PM.mpeg" type="audio/mpeg">
+  </audio>
+
+  <section id="invitacion">
+    <div class="card">
+      <h2>🎂 La buena noticia: es mi cumpleaños.</h2>
+      <h2>😅 La mala: van a tener que venir a festejar conmigo.</h2>
+
+      <p>Los espero este <strong>sábado 11 de julio</strong>.</p>
+      <p>📍 <strong>Amado Nervo 731</strong></p>
+      <p>🥤 Cada uno trae lo que va a tomar.</p>
+      <p>🥳 ¡Va a estar lindo!</p>
+      <p>⚽ <em>(Si pasamos a cuartos, vemos el partido. 😉)</em></p>
+
+      <a class="btn" href="https://maps.app.goo.gl/w4Rx8APa8nxzY5pa6?g_st=ic" target="_blank">
+        📍 Cómo llegar
+      </a>
+    </div>
+
+    <div class="card">
+      <h2>⏳ Falta poquito...</h2>
+      <div class="contador">
+        <div><strong id="dias">0</strong><br>Días</div>
+        <div><strong id="horas">0</strong><br>Horas</div>
+        <div><strong id="minutos">0</strong><br>Min</div>
+        <div><strong id="segundos">0</strong><br>Seg</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>✅ Confirmar asistencia</h2>
+      <form onsubmit="confirmar(event)">
+        <input type="text" id="nombre" placeholder="Tu nombre" required>
+        <select id="asiste" required>
+          <option value="">¿Vas a venir?</option>
+          <option value="Sí">Sí, voy 💖</option>
+          <option value="No">No puedo 😢</option>
+        </select>
+        <input type="number" id="cantidad" placeholder="¿Cuántas personas vienen?" min="1">
+        <button type="submit">Confirmar</button>
+      </form>
+      <p id="respuesta"></p>
+    </div>
+  </section>
+
+  <footer>
+    💖 Lo mejor de cumplir años es compartirlo con quienes quiero.
+  </footer>
+
+<script>
+  function abrirInvitacion(){
+    document.getElementById("musica").play();
+    document.getElementById("invitacion").scrollIntoView({behavior:"smooth"});
+  }
+
+  const fechaFiesta = new Date("July 11, 2026 22:00:00").getTime();
+
+  setInterval(() => {
+    const ahora = new Date().getTime();
+    const diferencia = fechaFiesta - ahora;
+
+    if(diferencia <= 0){
+      document.querySelector(".contador").innerHTML = "<h2>🎉 ¡Hoy es la fiesta! 🎉</h2>";
+      return;
+    }
+
+    document.getElementById("dias").innerText = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    document.getElementById("horas").innerText = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+    document.getElementById("minutos").innerText = Math.floor((diferencia / (1000 * 60)) % 60);
+    document.getElementById("segundos").innerText = Math.floor((diferencia / 1000) % 60);
+  }, 1000);
+
+  function confirmar(e){
+    e.preventDefault();
+    const nombre = document.getElementById("nombre").value;
+    document.getElementById("respuesta").innerHTML =
+      "💖 ¡Gracias por confirmar, " + nombre + "! Nos vemos el sábado.";
+  }
+</script>
 
 </body>
 </html>
