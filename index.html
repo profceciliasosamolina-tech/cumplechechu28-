@@ -167,12 +167,25 @@
     document.getElementById("segundos").innerText = Math.floor((diferencia / 1000) % 60);
   }, 1000);
 
-  function confirmar(e){
-    e.preventDefault();
-    const nombre = document.getElementById("nombre").value;
-    document.getElementById("respuesta").innerHTML =
-      "💖 ¡Gracias por confirmar, " + nombre + "! Nos vemos el sábado.";
-  }
+ function confirmar(e){
+  e.preventDefault();
+
+  const nombre = document.getElementById("nombre").value;
+  const asiste = document.getElementById("asiste").value;
+  const cantidad = document.getElementById("cantidad").value;
+
+  fetch("https://script.google.com/macros/s/AKfycby41wdQ3gLEn81b7yfGGzD8d5zHYeHapsUvN6E3aSi9nyjSyxbvc7M6V_c92mKR5B0A/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      nombre: nombre,
+      asiste: asiste,
+      cantidad: cantidad
+    })
+  });
+
+  document.getElementById("respuesta").innerHTML =
+    "💖 ¡Gracias por confirmar, " + nombre + "! Nos vemos el sábado.";
+}
 </script>
 
 </body>
